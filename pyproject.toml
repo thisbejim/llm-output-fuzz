@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "llm-output-fuzz"
+version = "0.1.0"
+description = "Deterministic, offline adversarial fixtures for testing LLM structured-output parsers"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "James Childs-Maidment" }]
+keywords = ["llm", "structured-output", "json-schema", "fuzzing", "testing", "tool-calling", "openai-compatible"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = ["jsonschema>=4.23,<5"]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<9",
+  "ruff>=0.9,<1",
+  "mypy>=1.13,<2",
+  "types-jsonschema>=4.23,<5",
+]
+
+[project.scripts]
+llm-output-fuzz = "llm_output_fuzz.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/llm_output_fuzz"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+packages = ["llm_output_fuzz"]

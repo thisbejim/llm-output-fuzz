@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/order.schema.json",
+  "title": "Order",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["order_id", "item", "quantity"],
+  "properties": {
+    "order_id": {"type": "string", "minLength": 3, "maxLength": 24},
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sku"],
+      "properties": {
+        "sku": {"type": "string", "minLength": 2},
+        "gift": {"type": "boolean"}
+      }
+    },
+    "quantity": {"type": "integer", "minimum": 1, "maximum": 20}
+  }
+}
